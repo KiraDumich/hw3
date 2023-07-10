@@ -8,10 +8,17 @@ class Item:
     all = []
 
     def __init__(self, name, one_pay, count):
+        if not isinstance(one_pay, (int, float)):
+            raise TypeError('Значение стоимости должно быть числом')
+        if not isinstance(name, str):
+            raise TypeError("Название товара должно быть строкой")
+        if not isinstance(count, int):
+            raise TypeError("Количество товара должно быть числом")
         self.__name = name
         self.one_pay = one_pay
         self.count = count
-        Item.price = one_pay
+
+        Item.all.append(self)
 
     def calculate_total_price(self) -> float:
         total_price = self.one_pay * self.count
@@ -27,28 +34,26 @@ class Item:
     @name.setter
     def name(self, item):
         if len(item) > 10:
-            self.__name == item[:10]
+            print('Длина наименования товара превышает 10 символов')
         else:
             self.__name = item
 
     @staticmethod
     def string_to_number(item):
         if item.isdigit():
-            return int(item)
+            return int(float(item))
 
 
     @classmethod
     def instantiate_from_csv(cls):
+        cls.all.clear()
         with open('../src/items.csv', 'r', encoding='windows-1251') as csvfile:
             reader = csv.DictReader(csvfile)
             for item in reader:
-                print(f"{item['name']}, {item['price']}, {item['quantity']}")
                 name = item['name']
                 price = cls.string_to_number(item['price'])
-                quantity = cls.string_to_number(item['quantity'])
-                items = cls(name, price, quantity)
-                cls.all.append(items)
-                print(len(cls.all))
+                count = cls.string_to_number(item['quantity'])
+                items = cls(name, price, count)
 
 
 
