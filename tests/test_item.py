@@ -18,7 +18,7 @@ def test_string_to_number():
     assert Item.string_to_number('6') == 6
 
 def test_name():
-    test = Item('Telephoness', 89, 8)
+    test = Item('Telephones', 89, 8)
     assert test.name == 'Telephones'
 
 def test_name_2():
