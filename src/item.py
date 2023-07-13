@@ -43,7 +43,6 @@ class Item:
         if item.isdigit():
             return int(float(item))
 
-
     @classmethod
     def instantiate_from_csv(cls):
         cls.all.clear()
@@ -54,6 +53,12 @@ class Item:
                 price = cls.string_to_number(item['price'])
                 count = cls.string_to_number(item['quantity'])
                 items = cls(name, price, count)
+
+    def __repr__(self):
+        return f"Item('{self.name}', {self.one_pay}, {self.count})"
+
+    def __str__(self):
+        return self.name
 
 
 
