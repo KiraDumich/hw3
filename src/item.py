@@ -1,5 +1,6 @@
 import csv
 
+
 class Item:
     """
     Класс для представления товара в магазине.
@@ -59,6 +60,11 @@ class Item:
 
     def __str__(self):
         return self.name
+
+    def __add__(self, other):
+        if not isinstance(other, self.__class__):
+            raise ValueError('Складывать можно только объекты класса Item или Phone и дочерние от них.')
+        return self.count + other.count
 
 
 
